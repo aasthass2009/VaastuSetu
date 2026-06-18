@@ -171,12 +171,17 @@ export default async function DashboardPage() {
           </div>
         )}
 
-        {/* Account meta */}
-        {memberSince && (
-          <p className="mt-8 font-body text-xs text-indigo-400">
-            Member since {memberSince}
-          </p>
-        )}
+        {/* Account meta + profile link */}
+        <div className="mt-8 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          {memberSince && (
+            <p className="font-body text-xs text-indigo-400">
+              Member since {memberSince}
+            </p>
+          )}
+          <Button asChild variant="outline" size="sm" className="w-fit border-cream-400 text-indigo-600 hover:bg-brand-indigo hover:text-cream-200">
+            <Link href="/profile">Profile &amp; Settings →</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
