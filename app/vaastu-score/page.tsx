@@ -376,12 +376,19 @@ export default function VaastuScorePage() {
               isSignedIn ? (
                 savedId ? (
                   <div className="rounded-xl border border-green-200 bg-green-50 p-5 text-center">
-                    <p className="font-body text-sm font-semibold text-green-800">
+                    <p className="mb-3 font-body text-sm font-semibold text-green-800">
                       ✓ Saved to your profile!
                     </p>
-                    <Button asChild variant="link" className="mt-1 text-brand-saffron">
-                      <Link href="/dashboard">View in Dashboard →</Link>
-                    </Button>
+                    <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
+                      <Button asChild className="bg-brand-saffron text-cream-200 hover:bg-saffron-600">
+                        <a href={`/api/homes/${savedId}/report`} download>
+                          ↓ Download PDF Report
+                        </a>
+                      </Button>
+                      <Button asChild variant="link" className="text-brand-saffron">
+                        <Link href="/homes">View in My Homes →</Link>
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div className="rounded-xl border border-cream-300 bg-white p-5">

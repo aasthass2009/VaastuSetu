@@ -14,9 +14,14 @@ export default async function DashboardPage() {
   // See lib/sync-user.ts for the production webhook note.
   const dbUser = await syncUser();
 
-  const homesCount = dbUser
-    ? await prisma.home.count({ where: { userId: dbUser.id } })
-    : 0;
+  const [homesCount, reportsCount] = dbUser
+    ? await Promise.all([
+        prisma.home.count({ where: { userId: dbUser.id } }),
+        prisma.report.count({
+          where: { home: { userId: dbUser.id }, pdfUrl: { not: null } },
+        }),
+      ])
+    : [0, 0];
 
   const displayName = dbUser?.name?.split(" ")[0] ?? "there";
   const memberSince = dbUser
@@ -76,7 +81,7 @@ export default async function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="font-heading text-4xl font-semibold text-brand-gold">
-                0
+                {reportsCount}
               </p>
               <p className="mt-1 font-body text-sm text-indigo-600">
                 Vastu reports generated

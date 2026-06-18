@@ -161,7 +161,17 @@ export default async function HomeDetailPage({
           </>
         )}
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          {score !== null && (
+            <Button
+              asChild
+              className="bg-brand-saffron text-cream-200 hover:bg-saffron-600"
+            >
+              <a href={`/api/homes/${id}/report`} download>
+                ↓ Download PDF Report
+              </a>
+            </Button>
+          )}
           <Button
             asChild
             variant="outline"
