@@ -1,0 +1,348 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../lib/generated/prisma"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  extensions = [vector]
+}
+
+// ---------------------------------------------------------------------------
+// Auth / identity
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  avatarUrl     String?
+  phone         String?
+  role          UserRole  @default(CLIENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  homes         Home[]
+  uploads       Upload[]
+  bookings      Booking[]
+  orders        Order[]
+  subscription  Subscription?
+  contacts      Contact[]
+  chatLogs      ChatLog[]
+  consultant    Consultant?
+
+  @@map("users")
+}
+
+enum UserRole {
+  CLIENT
+  CONSULTANT
+  ADMIN
+}
+
+// ---------------------------------------------------------------------------
+// Property / Vastu scoring
+// ---------------------------------------------------------------------------
+
+model Home {
+  id            String      @id @default(cuid())
+  userId        String
+  label         String                         // e.g. "My Flat, Pune"
+  address       String?
+  city          String?
+  state         String?
+  pincode       String?
+  plotFacing    Direction?
+  builtUpArea   Float?                         // sq ft
+  vaastuScore   Float?                         // 0–100
+  scoredAt      DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  uploads       Upload[]
+  reports       Report[]
+  vaastuPlans   VaastuPlan[]
+
+  @@map("homes")
+}
+
+enum Direction {
+  NORTH
+  NORTH_EAST
+  EAST
+  SOUTH_EAST
+  SOUTH
+  SOUTH_WEST
+  WEST
+  NORTH_WEST
+}
+
+// ---------------------------------------------------------------------------
+// Reports
+// ---------------------------------------------------------------------------
+
+model Report {
+  id            String      @id @default(cuid())
+  homeId        String
+  title         String
+  summary       String?     @db.Text
+  findings      Json                           // array of { zone, score, recommendation }
+  pdfUrl        String?
+  generatedAt   DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  home          Home        @relation(fields: [homeId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+// ---------------------------------------------------------------------------
+// File uploads (floor plans, photos)
+// ---------------------------------------------------------------------------
+
+model Upload {
+  id            String      @id @default(cuid())
+  userId        String
+  homeId        String?
+  filename      String
+  mimeType      String
+  sizeBytes     Int
+  storageKey    String      @unique               // S3 / R2 object key
+  publicUrl     String?
+  purpose       UploadPurpose @default(FLOOR_PLAN)
+  createdAt     DateTime    @default(now())
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  home          Home?       @relation(fields: [homeId], references: [id], onDelete: SetNull)
+
+  @@map("uploads")
+}
+
+enum UploadPurpose {
+  FLOOR_PLAN
+  SITE_PHOTO
+  DOCUMENT
+  AVATAR
+}
+
+// ---------------------------------------------------------------------------
+// AI-generated Vastu plans
+// ---------------------------------------------------------------------------
+
+model VaastuPlan {
+  id            String      @id @default(cuid())
+  homeId        String
+  version       Int         @default(1)
+  prompt        String?     @db.Text
+  planJson      Json                           // structured room-by-room recommendations
+  aiModel       String?                        // e.g. "claude-sonnet-4-6"
+  generatedAt   DateTime    @default(now())
+
+  home          Home        @relation(fields: [homeId], references: [id], onDelete: Cascade)
+
+  @@map("vaastu_plans")
+}
+
+// ---------------------------------------------------------------------------
+// Consultants
+// ---------------------------------------------------------------------------
+
+model Consultant {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  bio             String?   @db.Text
+  specialisations String[]                     // e.g. ["Residential", "Commercial"]
+  languages       String[]
+  experienceYears Int       @default(0)
+  ratingAvg       Float?
+  ratingCount     Int       @default(0)
+  hourlyRateINR   Int?
+  isAvailable     Boolean   @default(true)
+  calendarUrl     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookings        Booking[]
+
+  @@map("consultants")
+}
+
+// ---------------------------------------------------------------------------
+// Bookings
+// ---------------------------------------------------------------------------
+
+model Booking {
+  id              String        @id @default(cuid())
+  userId          String
+  consultantId    String
+  scheduledAt     DateTime
+  durationMins    Int           @default(60)
+  status          BookingStatus @default(PENDING)
+  meetingUrl      String?
+  notesClient     String?       @db.Text
+  notesConsultant String?       @db.Text
+  orderId         String?       @unique
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  consultant      Consultant    @relation(fields: [consultantId], references: [id], onDelete: Cascade)
+  order           Order?        @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+// ---------------------------------------------------------------------------
+// Orders / payments
+// ---------------------------------------------------------------------------
+
+model Order {
+  id              String      @id @default(cuid())
+  userId          String
+  amountPaise     Int                          // Indian paise (₹1 = 100 paise)
+  currency        String      @default("INR")
+  status          OrderStatus @default(CREATED)
+  razorpayOrderId String?     @unique
+  razorpayPaymentId String?
+  description     String?
+  metadata        Json?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  booking         Booking?
+
+  @@map("orders")
+}
+
+enum OrderStatus {
+  CREATED
+  PAID
+  FAILED
+  REFUNDED
+}
+
+// ---------------------------------------------------------------------------
+// Subscriptions
+// ---------------------------------------------------------------------------
+
+model Subscription {
+  id              String             @id @default(cuid())
+  userId          String             @unique
+  plan            SubscriptionPlan   @default(FREE)
+  status          SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelledAt     DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+enum SubscriptionPlan {
+  FREE
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PAST_DUE
+  TRIALING
+}
+
+// ---------------------------------------------------------------------------
+// Contact / enquiries
+// ---------------------------------------------------------------------------
+
+model Contact {
+  id        String        @id @default(cuid())
+  userId    String?
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String        @db.Text
+  status    ContactStatus @default(NEW)
+  repliedAt DateTime?
+  createdAt DateTime      @default(now())
+
+  user      User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("contacts")
+}
+
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+// ---------------------------------------------------------------------------
+// Chat / AI conversation logs
+// ---------------------------------------------------------------------------
+
+model ChatLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  sessionId String                          // anonymous or authenticated session
+  role      ChatRole
+  content   String   @db.Text
+  tokens    Int?
+  model     String?
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([sessionId])
+  @@map("chat_logs")
+}
+
+enum ChatRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+// ---------------------------------------------------------------------------
+// RAG knowledge base — pgvector embeddings
+// ---------------------------------------------------------------------------
+
+model Embedding {
+  id          String                      @id @default(cuid())
+  sourceType  EmbeddingSource
+  sourceId    String?                     // optional FK to the source record
+  chunkIndex  Int                         @default(0)
+  content     String                      @db.Text  // the raw text chunk
+  embedding   Unsupported("vector(1536)")?           // OpenAI / Claude embedding
+  metadata    Json?
+  createdAt   DateTime                    @default(now())
+
+  @@index([sourceType, sourceId])
+  @@map("embeddings")
+}
+
+enum EmbeddingSource {
+  VASTU_ARTICLE
+  REPORT
+  CONSULTANT_BIO
+  FAQ
+  CHAT_LOG
+}

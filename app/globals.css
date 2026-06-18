@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-heading: 'Cormorant Garamond', Georgia, Cambria, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --radius: 0.5rem;
+
+    --background: 251 245 234;       /* cream */
+    --foreground: 36 27 58;          /* indigo */
+    --muted: 245 233 208;
+    --muted-foreground: 100 90 130;
+    --border: 229 216 195;
+    --ring: 192 90 18;               /* saffron */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-cream-200 text-brand-indigo font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .border-border {
+    border-color: rgb(229 216 195);
+  }
+}
