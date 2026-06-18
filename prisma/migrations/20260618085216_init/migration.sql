@@ -34,6 +34,7 @@ CREATE TYPE "EmbeddingSource" AS ENUM ('VASTU_ARTICLE', 'REPORT', 'CONSULTANT_BI
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
+    "clerkId" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
     "avatarUrl" TEXT,
@@ -219,6 +220,9 @@ CREATE TABLE "embeddings" (
 
     CONSTRAINT "embeddings_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_clerkId_key" ON "users"("clerkId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");

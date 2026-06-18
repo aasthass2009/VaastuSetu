@@ -58,9 +58,13 @@ export default async function DashboardPage() {
               <p className="mt-1 font-body text-sm text-indigo-600">
                 Saved properties
               </p>
-              {homesCount === 0 && (
+              {homesCount === 0 ? (
                 <Button asChild variant="link" className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron">
                   <Link href="/vaastu-score">Score your first home →</Link>
+                </Button>
+              ) : (
+                <Button asChild variant="link" className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron">
+                  <Link href="/homes">View all homes →</Link>
                 </Button>
               )}
             </CardContent>

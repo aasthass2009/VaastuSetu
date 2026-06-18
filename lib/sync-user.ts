@@ -24,12 +24,9 @@ export async function syncUser() {
     [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") ||
     undefined;
 
-  // Upsert by email (guaranteed unique via Clerk). Also writes clerkId so
-  // we can look up by either key in future. Name is kept in sync in case
-  // the user updates their profile in Clerk.
   return await prisma.user.upsert({
-    where: { email },
+    where: { clerkId: clerkUser.id },
     create: { clerkId: clerkUser.id, email, name, role: "CLIENT" },
-    update: { clerkId: clerkUser.id, name },
+    update: { email, name },
   });
 }

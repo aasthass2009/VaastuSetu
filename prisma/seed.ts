@@ -64,6 +64,7 @@ async function main() {
       where: { email },
       update: {},
       create: {
+        clerkId: `seed_${email}`,
         email,
         name,
         role: UserRole.CONSULTANT,

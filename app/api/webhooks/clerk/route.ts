@@ -70,14 +70,16 @@ export async function POST(req: NextRequest) {
       const name = [first_name, last_name].filter(Boolean).join(" ") || null;
 
       await prisma.user.upsert({
-        where: { email: primaryEmail },
+        where: { clerkId: id },
         create: {
+          clerkId: id,
           email: primaryEmail,
           name,
           avatarUrl: image_url,
           role: UserRole.CLIENT,
         },
         update: {
+          email: primaryEmail,
           name,
           avatarUrl: image_url,
         },
