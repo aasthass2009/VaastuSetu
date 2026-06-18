@@ -11,6 +11,7 @@ const consultantData = [
   {
     email: "dr.meera.iyer@vaastusetu.com",
     name: "Dr. Meera Iyer",
+    city: "Bangalore",
     bio: "PhD in Vedic Architecture from Mysore University. 18 years of residential and temple Vastu consultancy across South India. Specialises in energy-zone mapping and remedial corrections without structural changes.",
     specialisations: ["Residential", "Temples & Spiritual Spaces", "Remedial Vastu"],
     languages: ["English", "Kannada", "Tamil", "Hindi"],
@@ -22,6 +23,7 @@ const consultantData = [
   {
     email: "arjun.sharma@vaastusetu.com",
     name: "Arjun Sharma",
+    city: "Jaipur",
     bio: "Trained under the Jaipur Vastu Vidyalaya lineage. Focuses on commercial properties, office layouts, and plot selection for new construction. Known for combining classical Vastu Shastra with modern architectural software.",
     specialisations: ["Commercial", "Office & Workspace", "Plot & Construction"],
     languages: ["English", "Hindi", "Rajasthani"],
@@ -33,6 +35,7 @@ const consultantData = [
   {
     email: "sunita.kulkarni@vaastusetu.com",
     name: "Sunita Kulkarni",
+    city: "Mumbai",
     bio: "Former architect turned Vastu consultant. Brings a rare blend of technical drafting expertise and traditional Vastu knowledge. Specialises in apartment complexes and urban high-rises where classical rules require adaptation.",
     specialisations: ["Residential", "Apartments & High-rise", "Interior Vastu"],
     languages: ["English", "Marathi", "Hindi"],
@@ -44,6 +47,7 @@ const consultantData = [
   {
     email: "rajan.nambiar@vaastusetu.com",
     name: "Rajan Nambiar",
+    city: "Thrissur",
     bio: "Third-generation Vastu practitioner from Kerala, schooled in the Thachu Shastra tradition. Specialises in wellness centres, hospitals, and healing spaces. Fluent in Sanskrit Vastu texts and their practical interpretation.",
     specialisations: ["Wellness & Healthcare", "Hospitality", "Heritage Properties"],
     languages: ["English", "Malayalam", "Tamil"],
@@ -58,7 +62,7 @@ async function main() {
   console.log("Seeding consultants…");
 
   for (const c of consultantData) {
-    const { email, name, bio, specialisations, languages, experienceYears, ratingAvg, ratingCount, hourlyRateINR } = c;
+    const { email, name, city, bio, specialisations, languages, experienceYears, ratingAvg, ratingCount, hourlyRateINR } = c;
 
     const user = await prisma.user.upsert({
       where: { email },
@@ -73,9 +77,10 @@ async function main() {
 
     await prisma.consultant.upsert({
       where: { userId: user.id },
-      update: {},
+      update: { city, bio, specialisations, languages, experienceYears, ratingAvg, ratingCount, hourlyRateINR },
       create: {
         userId: user.id,
+        city,
         bio,
         specialisations,
         languages,

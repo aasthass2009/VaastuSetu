@@ -7,9 +7,11 @@ import { Menu, X } from "lucide-react";
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 const navLinks = [
-  { label: "Home",     href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "About",    href: "/about" },
+  { label: "Home",         href: "/" },
+  { label: "Room Guides",  href: "/room-guides" },
+  { label: "Consultants",  href: "/consultants" },
+  { label: "Services",     href: "/services" },
+  { label: "About",        href: "/about" },
 ];
 
 export default function Header() {

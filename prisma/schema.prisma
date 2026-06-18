@@ -154,7 +154,8 @@ model Consultant {
   id              String    @id @default(cuid())
   userId          String    @unique
   bio             String?   @db.Text
-  specialisations String[]                     // e.g. ["Residential", "Commercial"]
+  city            String?
+  specialisations String[]
   languages       String[]
   experienceYears Int       @default(0)
   ratingAvg       Float?

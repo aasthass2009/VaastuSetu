@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "About VaastuSetu — Authentic, Affordable Vastu for Everyone",
+  description:
+    "VaastuSetu's mission: authentic Vastu Shastra guidance for every household in India and abroad, with no-demolition remedies and respectful, tradition-rooted advice.",
+};
 
 const values = [
   {

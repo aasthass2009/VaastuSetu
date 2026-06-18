@@ -6,22 +6,39 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+const STATUS_LABEL: Record<string, { label: string; cls: string }> = {
+  PENDING:   { label: "Requested",  cls: "bg-amber-100 text-amber-700" },
+  CONFIRMED: { label: "Confirmed",  cls: "bg-green-100 text-green-700" },
+  COMPLETED: { label: "Completed",  cls: "bg-indigo-100 text-indigo-700" },
+  CANCELLED: { label: "Cancelled",  cls: "bg-red-100 text-red-600" },
+  NO_SHOW:   { label: "No-show",    cls: "bg-gray-100 text-gray-500" },
+};
+
 export default async function DashboardPage() {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
-  // Upsert the Clerk user into our DB on every dashboard visit.
-  // See lib/sync-user.ts for the production webhook note.
   const dbUser = await syncUser();
 
-  const [homesCount, reportsCount] = dbUser
+  const [homesCount, reportsCount, bookingsCount, upcomingBookings] = dbUser
     ? await Promise.all([
         prisma.home.count({ where: { userId: dbUser.id } }),
         prisma.report.count({
           where: { home: { userId: dbUser.id }, pdfUrl: { not: null } },
         }),
+        prisma.booking.count({ where: { userId: dbUser.id } }),
+        prisma.booking.findMany({
+          where: {
+            userId: dbUser.id,
+            scheduledAt: { gte: new Date() },
+            status: { notIn: ["CANCELLED", "NO_SHOW"] },
+          },
+          include: { consultant: { include: { user: { select: { name: true } } } } },
+          orderBy: { scheduledAt: "asc" },
+          take: 3,
+        }),
       ])
-    : [0, 0];
+    : [0, 0, 0, []];
 
   const displayName = dbUser?.name?.split(" ")[0] ?? "there";
   const memberSince = dbUser
@@ -35,7 +52,7 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-[calc(100vh-8rem)] bg-cream-200 px-6 py-12">
       <div className="mx-auto max-w-5xl">
-        {/* Welcome banner */}
+        {/* Welcome */}
         <div className="mb-10">
           <p className="font-body text-sm font-medium uppercase tracking-widest text-brand-saffron">
             Your Dashboard
@@ -63,15 +80,17 @@ export default async function DashboardPage() {
               <p className="mt-1 font-body text-sm text-indigo-600">
                 Saved properties
               </p>
-              {homesCount === 0 ? (
-                <Button asChild variant="link" className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron">
+              <Button
+                asChild
+                variant="link"
+                className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron"
+              >
+                {homesCount === 0 ? (
                   <Link href="/vaastu-score">Score your first home →</Link>
-                </Button>
-              ) : (
-                <Button asChild variant="link" className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron">
+                ) : (
                   <Link href="/homes">View all homes →</Link>
-                </Button>
-              )}
+                )}
+              </Button>
             </CardContent>
           </Card>
 
@@ -84,7 +103,7 @@ export default async function DashboardPage() {
                 {reportsCount}
               </p>
               <p className="mt-1 font-body text-sm text-indigo-600">
-                Vastu reports generated
+                PDF reports generated
               </p>
             </CardContent>
           </Card>
@@ -95,14 +114,62 @@ export default async function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="font-heading text-4xl font-semibold text-brand-indigo">
-                0
+                {bookingsCount}
               </p>
               <p className="mt-1 font-body text-sm text-indigo-600">
                 Consultations booked
               </p>
+              <Button
+                asChild
+                variant="link"
+                className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron"
+              >
+                <Link href="/consultants">Browse consultants →</Link>
+              </Button>
             </CardContent>
           </Card>
         </div>
+
+        {/* Upcoming bookings */}
+        {upcomingBookings.length > 0 && (
+          <div className="mt-10">
+            <h2 className="mb-4 font-heading text-xl font-semibold text-brand-indigo">
+              Upcoming Consultations
+            </h2>
+            <div className="space-y-3">
+              {upcomingBookings.map((b) => {
+                const dt = new Date(b.scheduledAt);
+                const formatted = dt.toLocaleString("en-IN", {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
+                const badge = STATUS_LABEL[b.status] ?? STATUS_LABEL.PENDING;
+                return (
+                  <div
+                    key={b.id}
+                    className="flex flex-col gap-1 rounded-xl border border-cream-300 bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <div>
+                      <p className="font-body text-sm font-semibold text-brand-indigo">
+                        {b.consultant.user.name}
+                      </p>
+                      <p className="font-body text-xs text-indigo-500">{formatted}</p>
+                    </div>
+                    <span
+                      className={`inline-block rounded-full px-2.5 py-0.5 font-body text-xs font-semibold ${badge.cls}`}
+                    >
+                      {badge.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Account meta */}
         {memberSince && (
