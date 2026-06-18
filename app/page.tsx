@@ -36,7 +36,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-brand-indigo px-6 py-24 text-center md:py-36">
+      <section className="relative overflow-hidden bg-brand-indigo px-4 py-16 text-center sm:px-6 md:py-32">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-5"
@@ -49,7 +49,7 @@ export default function HomePage() {
           <p className="mb-4 font-body text-sm font-medium uppercase tracking-[0.2em] text-brand-gold">
             Ancient Wisdom · Modern Living
           </p>
-          <h1 className="mb-6 font-heading text-5xl font-semibold leading-tight text-cream-200 md:text-7xl">
+          <h1 className="mb-6 font-heading text-4xl font-semibold leading-tight text-cream-200 sm:text-5xl md:text-7xl">
             Harmonise Your Space with{" "}
             <span className="text-brand-saffron">Vastu</span>
           </h1>

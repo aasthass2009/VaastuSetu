@@ -36,3 +36,17 @@
     border-color: rgb(229 216 195);
   }
 }
+
+@layer base {
+  /* Visible keyboard focus ring — saffron outline on all interactive elements */
+  :focus-visible {
+    outline: 2px solid #C05A12;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove tap highlight on mobile */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

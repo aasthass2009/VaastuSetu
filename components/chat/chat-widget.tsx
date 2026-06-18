@@ -168,11 +168,11 @@ export function ChatWidget() {
   );
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-3 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {/* ── Chat panel ─────────────────────────────────────────────────────── */}
       {open && (
         <div
-          className="flex flex-col w-[360px] h-[520px] rounded-2xl shadow-2xl overflow-hidden border border-[#E8DFC8]"
+          className="flex flex-col w-[min(360px,calc(100vw-1.5rem))] h-[min(520px,calc(100dvh-120px))] rounded-2xl shadow-2xl overflow-hidden border border-[#E8DFC8]"
           style={{ background: "#FBF5EA" }}
         >
           {/* Header */}

@@ -44,12 +44,12 @@ export default async function ConsultantsPage() {
   return (
     <div className="bg-cream-200">
       {/* Hero */}
-      <section className="bg-brand-indigo px-6 py-20 text-center md:py-28">
+      <section className="bg-brand-indigo px-4 py-14 text-center sm:px-6 md:py-24">
         <div className="mx-auto max-w-2xl">
           <p className="mb-3 font-body text-sm font-medium uppercase tracking-[0.2em] text-brand-gold">
             Expert Guidance
           </p>
-          <h1 className="mb-5 font-heading text-5xl font-semibold text-cream-200 md:text-6xl">
+          <h1 className="mb-5 font-heading text-4xl font-semibold text-cream-200 sm:text-5xl md:text-6xl">
             Our Consultants
           </h1>
           <p className="font-body text-lg leading-relaxed text-cream-300">

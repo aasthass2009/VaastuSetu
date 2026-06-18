@@ -216,12 +216,12 @@ export default function VaastuScorePage() {
   return (
     <div className="bg-cream-200">
       {/* ── Page header ─────────────────────────────────────────── */}
-      <section className="bg-brand-indigo px-6 py-20 text-center md:py-28">
+      <section className="bg-brand-indigo px-4 py-14 text-center sm:px-6 md:py-24">
         <div className="mx-auto max-w-2xl">
           <p className="mb-3 font-body text-sm font-medium uppercase tracking-[0.2em] text-brand-gold">
             Core Feature
           </p>
-          <h1 className="mb-5 font-heading text-5xl font-semibold text-cream-200 md:text-6xl">
+          <h1 className="mb-5 font-heading text-4xl font-semibold text-cream-200 sm:text-5xl md:text-6xl">
             Your Vastu Score
           </h1>
           <p className="font-body text-lg leading-relaxed text-cream-300">
@@ -238,9 +238,18 @@ export default function VaastuScorePage() {
           <h2 className="mb-2 font-heading text-2xl font-semibold text-brand-indigo">
             Which direction does each room face?
           </h2>
-          <p className="mb-8 font-body text-sm text-indigo-600">
+          <p className="mb-4 font-body text-sm text-indigo-600">
             Stand in the centre of the room and face outward — the direction you
             face is the room&apos;s facing direction.
+          </p>
+          <p className="mb-8 font-body text-sm text-indigo-600">
+            Not sure of a direction?{" "}
+            <Link
+              href="/compass"
+              className="font-medium text-brand-saffron underline-offset-4 hover:underline"
+            >
+              Use the compass tool →
+            </Link>
           </p>
 
           <div className="grid gap-4 sm:grid-cols-2">

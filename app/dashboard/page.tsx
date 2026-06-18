@@ -50,14 +50,14 @@ export default async function DashboardPage() {
     : null;
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] bg-cream-200 px-6 py-12">
+    <div className="min-h-[calc(100vh-8rem)] bg-cream-200 px-4 py-8 sm:px-6 sm:py-12">
       <div className="mx-auto max-w-5xl">
         {/* Welcome */}
         <div className="mb-10">
           <p className="font-body text-sm font-medium uppercase tracking-widest text-brand-saffron">
             Your Dashboard
           </p>
-          <h1 className="mt-1 font-heading text-4xl font-semibold text-brand-indigo md:text-5xl">
+          <h1 className="mt-1 font-heading text-3xl font-semibold text-brand-indigo sm:text-4xl md:text-5xl">
             Welcome, {displayName} ✦
           </h1>
           {dbUser && (

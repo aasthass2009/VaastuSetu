@@ -8,10 +8,10 @@ import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 const navLinks = [
   { label: "Home",         href: "/" },
+  { label: "Vastu Score",  href: "/vaastu-score" },
   { label: "Room Guides",  href: "/room-guides" },
   { label: "Consultants",  href: "/consultants" },
-  { label: "Services",     href: "/services" },
-  { label: "About",        href: "/about" },
+  { label: "Compass",      href: "/compass" },
 ];
 
 export default function Header() {
