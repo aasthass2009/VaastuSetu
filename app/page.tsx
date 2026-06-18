@@ -60,7 +60,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" className="min-w-[180px] text-base">
-              <Link href="/sign-up">Book a Consultation</Link>
+              <Link href="/vaastu-score">Get Your Vastu Score</Link>
             </Button>
             <Button
               asChild

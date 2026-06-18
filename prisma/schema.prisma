@@ -15,6 +15,7 @@ datasource db {
 
 model User {
   id            String    @id @default(cuid())
+  clerkId       String?   @unique               // Clerk user.id — set on first login; nullable so seed data stays valid
   email         String    @unique
   name          String?
   avatarUrl     String?

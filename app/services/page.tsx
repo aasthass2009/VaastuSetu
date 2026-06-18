@@ -5,7 +5,7 @@ const services = [
   {
     id: "vaastu-score",
     icon: "📊",
-    badge: "Coming soon",
+    badge: "Live",
     title: "Vastu Score",
     tagline: "Know your home's energy at a glance.",
     description:
@@ -16,7 +16,7 @@ const services = [
       "Prioritised list of easy and structural remedies",
       "Download a shareable PDF report",
     ],
-    cta: { label: "Join the waitlist", href: "/coming-soon?feature=Vastu+Score" },
+    cta: { label: "Calculate your score →", href: "/vaastu-score" },
     accent: "bg-brand-indigo",
   },
   {
