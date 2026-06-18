@@ -42,17 +42,22 @@ export default function RootLayout({
           />
         </head>
         <body className="flex min-h-screen flex-col">
+          {/* Skip link — outside overflow wrapper so its focus:fixed positioning works on iOS */}
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-saffron focus:px-4 focus:py-2 focus:text-cream-200 focus:outline-none"
           >
             Skip to content
           </a>
-          <Header />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <Footer />
+          {/* overflow-x wrapper around scrollable content only — NOT around fixed elements */}
+          <div className="flex min-h-screen flex-col overflow-x-hidden">
+            <Header />
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          {/* ChatWidget is fixed — must be outside the overflow wrapper */}
           <ChatWidget />
           <RegisterSW />
         </body>

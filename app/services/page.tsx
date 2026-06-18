@@ -135,15 +135,15 @@ export default function ServicesPage() {
   return (
     <div className="bg-cream-200">
       {/* Hero */}
-      <section className="bg-brand-indigo px-6 py-20 text-center md:py-28">
+      <section className="bg-brand-indigo px-4 py-14 text-center sm:px-6 md:py-24">
         <div className="mx-auto max-w-2xl">
           <p className="mb-3 font-body text-sm font-medium uppercase tracking-[0.2em] text-brand-gold">
             What We Offer
           </p>
-          <h1 className="mb-5 font-heading text-5xl font-semibold text-cream-200 md:text-6xl">
+          <h1 className="mb-5 font-heading text-4xl font-semibold text-cream-200 sm:text-5xl md:text-6xl">
             Our Services
           </h1>
-          <p className="font-body text-lg leading-relaxed text-cream-300">
+          <p className="font-body text-base leading-relaxed text-cream-300 sm:text-lg">
             From a free automated score to a full expert consultation — choose
             the level of guidance that fits your needs.
           </p>
@@ -151,8 +151,8 @@ export default function ServicesPage() {
       </section>
 
       {/* Service list */}
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-5xl space-y-16">
+      <section className="px-4 py-10 sm:px-6 sm:py-16">
+        <div className="mx-auto max-w-5xl space-y-12 sm:space-y-16">
           {services.map((s) => (
             <div
               key={s.id}
@@ -160,7 +160,7 @@ export default function ServicesPage() {
               className={`flex flex-col gap-10 md:flex-row ${s.flip ? "md:flex-row-reverse" : ""}`}
             >
               {/* Icon panel */}
-              <div className="flex w-full shrink-0 items-center justify-center rounded-2xl bg-brand-indigo py-16 md:w-52">
+              <div className="flex w-full shrink-0 items-center justify-center rounded-2xl bg-brand-indigo py-10 md:w-52 md:py-16">
                 <span className="text-6xl" aria-hidden>
                   {s.icon}
                 </span>
@@ -217,7 +217,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="bg-brand-indigo px-6 py-16 text-center">
+      <section className="bg-brand-indigo px-4 py-12 text-center sm:px-6 sm:py-16">
         <div className="mx-auto max-w-xl">
           <h2 className="mb-4 font-heading text-3xl font-semibold text-cream-200">
             Not sure where to start?

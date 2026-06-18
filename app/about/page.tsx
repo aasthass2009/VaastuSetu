@@ -54,17 +54,17 @@ export default function AboutPage() {
     <div className="bg-cream-200">
 
       {/* Hero */}
-      <section className="bg-brand-indigo px-6 py-20 text-center md:py-28">
+      <section className="bg-brand-indigo px-4 py-14 text-center sm:px-6 md:py-24">
         <div className="mx-auto max-w-3xl">
           <p className="mb-3 font-body text-sm font-medium uppercase tracking-[0.2em] text-brand-gold">
             Our Mission
           </p>
-          <h1 className="mb-6 font-heading text-5xl font-semibold leading-tight text-cream-200 md:text-6xl">
+          <h1 className="mb-6 font-heading text-3xl font-semibold leading-tight text-cream-200 sm:text-5xl md:text-6xl">
             Making Vastu{" "}
-            <span className="text-brand-saffron">Simple, Affordable</span>{" "}
+            <span className="text-brand-saffron">Simple</span>{" "}
             and Trustworthy
           </h1>
-          <p className="mx-auto max-w-2xl font-body text-lg leading-relaxed text-cream-300">
+          <p className="mx-auto max-w-2xl font-body text-base leading-relaxed text-cream-300 sm:text-lg">
             Millions of families across India and the world believe in the
             transformative power of Vastu Shastra — but finding genuine,
             affordable guidance has always been difficult. VaastuSetu exists
@@ -74,7 +74,7 @@ export default function AboutPage() {
       </section>
 
       {/* Story */}
-      <section className="px-6 py-20">
+      <section className="px-4 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center gap-4 mb-8">
             <div className="h-px flex-1 bg-cream-300" />
@@ -118,7 +118,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-brand-indigo px-6 py-20">
+      <section className="bg-brand-indigo px-4 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-12 text-center font-heading text-3xl font-semibold text-cream-200 md:text-4xl">
             What We Stand For
@@ -140,12 +140,12 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="px-6 py-20">
+      <section className="px-4 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-12 text-center font-heading text-3xl font-semibold text-brand-indigo md:text-4xl">
+          <h2 className="mb-10 text-center font-heading text-3xl font-semibold text-brand-indigo md:text-4xl">
             The People Behind VaastuSetu
           </h2>
-          <div className="grid gap-6 sm:grid-cols-3">
+          <div className="grid gap-5 grid-cols-1 sm:grid-cols-3">
             {team.map((person) => (
               <div key={person.name} className="rounded-xl border border-cream-300 bg-white p-6 text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-indigo font-heading text-2xl font-semibold text-brand-gold">
@@ -167,7 +167,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-cream-300 px-6 py-16 text-center">
+      <section className="bg-cream-300 px-4 py-12 text-center sm:px-6 sm:py-16">
         <div className="mx-auto max-w-xl">
           <h2 className="mb-4 font-heading text-3xl font-semibold text-brand-indigo">
             Ready to begin?

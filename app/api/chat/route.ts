@@ -21,6 +21,10 @@ type HistoryMessage = { role: "user" | "assistant"; content: string };
 type EmbeddingRow = { content: string; metadata: unknown };
 
 export async function POST(req: NextRequest) {
+  if (!process.env.OPENAI_API_KEY) {
+    return NextResponse.json({ comingSoon: true }, { status: 503 });
+  }
+
   const body = await req.json().catch(() => null);
   if (!body?.message || !body?.sessionId) {
     return NextResponse.json(

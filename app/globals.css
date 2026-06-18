@@ -24,6 +24,7 @@
 
   body {
     @apply bg-cream-200 text-brand-indigo font-body antialiased;
+    /* overflow-x: hidden intentionally NOT set on body — it breaks position:fixed on iOS Safari */
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -45,8 +46,9 @@
     border-radius: 4px;
   }
 
-  /* Remove tap highlight on mobile */
+  /* Remove tap highlight + eliminate 300ms iOS tap delay */
   button, a, [role="button"] {
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 }

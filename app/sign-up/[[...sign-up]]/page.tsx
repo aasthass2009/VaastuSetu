@@ -18,10 +18,6 @@ export default function SignUpPage() {
             variables: {
               colorPrimary: "#C05A12",
               colorBackground: "#FBF5EA",
-              colorInputBackground: "#ffffff",
-              colorText: "#241B3A",
-              colorTextSecondary: "#4a4060",
-              colorInputText: "#241B3A",
               borderRadius: "0.5rem",
               fontFamily: "Inter, system-ui, sans-serif",
             },

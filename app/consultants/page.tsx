@@ -61,7 +61,7 @@ export default async function ConsultantsPage() {
       </section>
 
       {/* Listing */}
-      <section className="px-6 py-16">
+      <section className="px-4 py-10 sm:px-6 sm:py-14">
         <div className="mx-auto max-w-5xl">
           {consultants.length === 0 ? (
             <p className="text-center font-body text-base text-indigo-500">
@@ -160,7 +160,7 @@ export default async function ConsultantsPage() {
       </section>
 
       {/* Trust strip */}
-      <section className="bg-brand-indigo px-6 py-12 text-center">
+      <section className="bg-brand-indigo px-4 py-10 text-center sm:px-6 sm:py-12">
         <div className="mx-auto max-w-3xl">
           <p className="mb-6 font-body text-sm font-medium uppercase tracking-widest text-brand-gold">
             How it works

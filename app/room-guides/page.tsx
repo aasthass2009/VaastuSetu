@@ -163,16 +163,16 @@ export default function RoomGuidesPage() {
   return (
     <div className="bg-cream-200">
       {/* Hero */}
-      <section className="bg-brand-indigo px-6 py-20 text-center md:py-28">
+      <section className="bg-brand-indigo px-4 py-14 text-center sm:px-6 md:py-24">
         <div className="mx-auto max-w-3xl">
           <p className="mb-3 font-body text-sm font-medium uppercase tracking-[0.2em] text-brand-gold">
             Room-by-Room Guide
           </p>
-          <h1 className="mb-6 font-heading text-5xl font-semibold leading-tight text-cream-200 md:text-6xl">
+          <h1 className="mb-6 font-heading text-3xl font-semibold leading-tight text-cream-200 sm:text-5xl md:text-6xl">
             Vastu for Every{" "}
-            <span className="text-brand-saffron">Room in Your Home</span>
+            <span className="text-brand-saffron">Room</span>
           </h1>
-          <p className="mx-auto max-w-2xl font-body text-lg leading-relaxed text-cream-300">
+          <p className="mx-auto max-w-2xl font-body text-base leading-relaxed text-cream-300 sm:text-lg">
             Each room governs a different dimension of life. Discover the ideal
             directions, what to do and avoid, and practical no-demolition
             remedies for any placement.
@@ -197,14 +197,14 @@ export default function RoomGuidesPage() {
       </div>
 
       {/* Room guide accordion */}
-      <section className="px-6 py-16">
+      <section className="px-4 py-10 sm:px-6 sm:py-14">
         <div className="mx-auto max-w-3xl space-y-4">
           {ROOM_GUIDES.map((room) => (
             <details
               key={room.key}
               className="group rounded-2xl border border-cream-300 bg-white open:shadow-md transition-shadow"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 select-none">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-4 sm:gap-4 sm:px-6 sm:py-5 select-none">
                 <div className="flex items-center gap-4 min-w-0">
                   <span className="text-3xl shrink-0" aria-hidden>
                     {room.icon}
@@ -214,7 +214,7 @@ export default function RoomGuidesPage() {
                       {room.label}
                     </h2>
                     <span
-                      className={`mt-1 inline-block rounded-full px-2.5 py-0.5 font-body text-xs font-medium ${room.badgeColor}`}
+                      className={`mt-1 inline-block max-w-full truncate rounded-md px-2 py-0.5 font-body text-xs font-medium ${room.badgeColor}`}
                     >
                       {room.idealDirs}
                     </span>
@@ -239,7 +239,7 @@ export default function RoomGuidesPage() {
               </summary>
 
               {/* Expanded content */}
-              <div className="border-t border-cream-300 px-6 pb-6 pt-5">
+              <div className="border-t border-cream-300 px-4 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5">
                 {/* Why it matters */}
                 <div className="mb-5">
                   <h3 className="mb-2 font-heading text-base font-semibold text-brand-indigo">

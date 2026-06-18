@@ -61,7 +61,7 @@ export default async function DashboardPage() {
             Welcome, {displayName} ✦
           </h1>
           {dbUser && (
-            <p className="mt-2 font-body text-base text-indigo-600">
+            <p className="mt-2 truncate font-body text-base text-indigo-600">
               {dbUser.email}
             </p>
           )}

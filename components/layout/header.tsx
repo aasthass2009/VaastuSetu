@@ -28,7 +28,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-brand-indigo/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1" onClick={() => setMobileOpen(false)}>
@@ -37,7 +37,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-4 md:flex lg:gap-6">
           {navLinks.map(({ label, href }) => (
             <Link key={href} href={href} className={navClass(href)}>
               {label}
@@ -100,9 +100,10 @@ export default function Header() {
             <UserButton appearance={{ elements: { avatarBox: "h-7 w-7 ring-2 ring-brand-saffron ring-offset-1 ring-offset-brand-indigo" } }} />
           </Show>
           <button
+            type="button"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            className="text-cream-300 hover:text-cream-200"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-cream-300 hover:text-cream-200"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -111,7 +112,7 @@ export default function Header() {
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <nav className="border-t border-white/10 bg-brand-indigo px-6 py-4 md:hidden">
+        <nav className="border-t border-white/10 bg-brand-indigo px-4 py-4 sm:px-6 md:hidden">
           <ul className="flex flex-col gap-4">
             {navLinks.map(({ label, href }) => (
               <li key={href}>

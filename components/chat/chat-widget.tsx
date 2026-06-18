@@ -119,6 +119,22 @@ export function ChatWidget() {
         }),
       });
 
+      if (res.status === 503) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === asstMsgId
+              ? {
+                  ...m,
+                  content:
+                    "Our AI Vaastu Guide is coming soon — check back shortly! In the meantime, try the Vastu Score tool or explore the Room Guides.",
+                  loading: false,
+                }
+              : m
+          )
+        );
+        return;
+      }
+
       if (!res.ok || !res.body) {
         throw new Error(`HTTP ${res.status}`);
       }

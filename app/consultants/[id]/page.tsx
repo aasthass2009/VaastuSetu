@@ -50,7 +50,7 @@ export default async function ConsultantProfilePage({ params }: Ctx) {
   return (
     <div className="min-h-screen bg-cream-200">
       {/* Hero strip */}
-      <div className="bg-brand-indigo px-6 py-12">
+      <div className="bg-brand-indigo px-4 py-10 sm:px-6 sm:py-12">
         <div className="mx-auto max-w-5xl flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
           <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-brand-gold/20 font-heading text-3xl font-semibold text-brand-gold ring-4 ring-brand-gold/30">
             {initials}
@@ -79,7 +79,7 @@ export default async function ConsultantProfilePage({ params }: Ctx) {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-5xl gap-10 px-6 py-12 lg:grid lg:grid-cols-[1fr_380px]">
+      <div className="mx-auto max-w-5xl gap-10 px-4 py-8 sm:px-6 sm:py-12 lg:grid lg:grid-cols-[1fr_380px]">
         {/* Left: profile details */}
         <div className="mb-10 lg:mb-0">
           <section className="mb-8">

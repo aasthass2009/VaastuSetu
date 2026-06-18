@@ -53,7 +53,7 @@ export default function HomePage() {
             Harmonise Your Space with{" "}
             <span className="text-brand-saffron">Vastu</span>
           </h1>
-          <p className="mx-auto mb-10 max-w-xl font-body text-lg leading-relaxed text-cream-300">
+          <p className="mx-auto mb-10 max-w-xl font-body text-base leading-relaxed text-cream-300 sm:text-lg">
             VaastuSetu bridges five-thousand-year-old Vedic architectural
             principles with contemporary design — helping you create spaces
             that nurture well-being, abundance, and peace.
@@ -82,10 +82,10 @@ export default function HomePage() {
       </div>
 
       {/* Services preview */}
-      <section className="bg-cream-200 px-6 py-20">
+      <section className="bg-cream-200 px-4 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-3 font-heading text-4xl font-semibold text-brand-indigo md:text-5xl">
+            <h2 className="mb-3 font-heading text-3xl font-semibold text-brand-indigo sm:text-4xl md:text-5xl">
               Our Services
             </h2>
             <p className="mx-auto max-w-lg font-body text-base text-indigo-700">
@@ -129,9 +129,9 @@ export default function HomePage() {
       </section>
 
       {/* CTA Banner */}
-      <section className="bg-brand-saffron px-6 py-16 text-center">
+      <section className="bg-brand-saffron px-4 py-10 text-center sm:px-6 sm:py-14">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-4 font-heading text-3xl font-semibold text-cream-200 md:text-4xl">
+          <h2 className="mb-4 font-heading text-2xl font-semibold text-cream-200 sm:text-3xl md:text-4xl">
             Ready to Transform Your Space?
           </h2>
           <p className="mb-8 font-body text-base text-cream-300">
