@@ -1,0 +1,9 @@
+-- CreateEnum
+CREATE TYPE "OrderType" AS ENUM ('CONSULTATION', 'REPORT_UNLOCK', 'SUBSCRIPTION');
+
+-- AlterTable
+ALTER TABLE "orders" ADD COLUMN     "homeId" TEXT,
+ADD COLUMN     "type" "OrderType" NOT NULL DEFAULT 'CONSULTATION';
+
+-- AddForeignKey
+ALTER TABLE "orders" ADD CONSTRAINT "orders_homeId_fkey" FOREIGN KEY ("homeId") REFERENCES "homes"("id") ON DELETE SET NULL ON UPDATE CASCADE;

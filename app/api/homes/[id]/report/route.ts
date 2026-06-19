@@ -14,6 +14,23 @@ function getVerdict(score: number): "Excellent" | "Good" | "Fair" | "Poor" {
   return "Poor";
 }
 
+async function hasReportAccess(userId: string, homeId: string): Promise<boolean> {
+  const [subscription, paidOrder] = await Promise.all([
+    prisma.subscription.findUnique({ where: { userId } }),
+    prisma.order.findFirst({
+      where: { userId, type: "REPORT_UNLOCK", homeId, status: "PAID" },
+    }),
+  ]);
+
+  const isPro =
+    subscription?.plan === "PRO" &&
+    subscription?.status === "ACTIVE" &&
+    subscription.currentPeriodEnd != null &&
+    new Date(subscription.currentPeriodEnd) > new Date();
+
+  return isPro || paidOrder !== null;
+}
+
 export async function GET(_req: NextRequest, { params }: Ctx) {
   const [{ userId }, { id }] = await Promise.all([auth(), params]);
   if (!userId) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
@@ -29,6 +46,15 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
   if (home.vaastuScore === null)
     return NextResponse.json({ error: "No score to generate a report for" }, { status: 400 });
 
+  // Paywall — must have paid for this report or have an active Pro subscription
+  const canDownload = await hasReportAccess(dbUser.id, id);
+  if (!canDownload) {
+    return NextResponse.json(
+      { error: "Payment required", code: "PAYMENT_REQUIRED" },
+      { status: 402 }
+    );
+  }
+
   const findings = (home.reports[0]?.findings ?? []) as RoomFinding[];
   const verdict  = getVerdict(home.vaastuScore);
   const scoredDate = new Date(home.scoredAt ?? home.createdAt).toLocaleDateString("en-IN", {
@@ -43,7 +69,6 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
     findings,
   });
 
-  // Mark the report record so the dashboard "reports generated" count reflects it
   if (home.reports[0]) {
     await prisma.report.update({
       where: { id: home.reports[0].id },

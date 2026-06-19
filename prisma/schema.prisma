@@ -68,6 +68,7 @@ model Home {
   uploads       Upload[]
   reports       Report[]
   vaastuPlans   VaastuPlan[]
+  orders        Order[]
 
   @@map("homes")
 }
@@ -213,20 +214,23 @@ enum BookingStatus {
 // ---------------------------------------------------------------------------
 
 model Order {
-  id              String      @id @default(cuid())
-  userId          String
-  amountPaise     Int                          // Indian paise (₹1 = 100 paise)
-  currency        String      @default("INR")
-  status          OrderStatus @default(CREATED)
-  razorpayOrderId String?     @unique
+  id                String      @id @default(cuid())
+  userId            String
+  amountPaise       Int                          // Indian paise (₹1 = 100 paise)
+  currency          String      @default("INR")
+  status            OrderStatus @default(CREATED)
+  type              OrderType   @default(CONSULTATION)
+  razorpayOrderId   String?     @unique
   razorpayPaymentId String?
-  description     String?
-  metadata        Json?
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  description       String?
+  metadata          Json?
+  homeId            String?                      // set for REPORT_UNLOCK orders
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 
-  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  booking         Booking?
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  home              Home?       @relation(fields: [homeId], references: [id], onDelete: SetNull)
+  booking           Booking?
 
   @@map("orders")
 }
@@ -236,6 +240,12 @@ enum OrderStatus {
   PAID
   FAILED
   REFUNDED
+}
+
+enum OrderType {
+  CONSULTATION
+  REPORT_UNLOCK
+  SUBSCRIPTION
 }
 
 // ---------------------------------------------------------------------------

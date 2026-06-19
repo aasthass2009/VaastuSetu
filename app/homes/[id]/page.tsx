@@ -6,6 +6,7 @@ import { syncUser } from "@/lib/sync-user";
 import { Button } from "@/components/ui/button";
 import { ScoreDial } from "@/components/vaastu/score-dial";
 import type { Verdict } from "@/components/vaastu/score-dial";
+import { ReportDownloadButton } from "@/components/payment/report-download-button";
 
 type RoomFinding = {
   room: string;
@@ -161,24 +162,17 @@ export default async function HomeDetailPage({
           </>
         )}
 
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
-          {score !== null && (
+        <div className="mt-10 space-y-4">
+          {score !== null && <ReportDownloadButton homeId={id} />}
+          <div className="flex justify-center">
             <Button
               asChild
-              className="bg-brand-saffron text-cream-200 hover:bg-saffron-600"
+              variant="outline"
+              className="border-brand-indigo text-brand-indigo hover:bg-brand-indigo hover:text-cream-200"
             >
-              <a href={`/api/homes/${id}/report`} download>
-                ↓ Download PDF Report
-              </a>
+              <Link href="/homes">← Back to My Homes</Link>
             </Button>
-          )}
-          <Button
-            asChild
-            variant="outline"
-            className="border-brand-indigo text-brand-indigo hover:bg-brand-indigo hover:text-cream-200"
-          >
-            <Link href="/homes">← Back to My Homes</Link>
-          </Button>
+          </div>
         </div>
       </div>
     </div>

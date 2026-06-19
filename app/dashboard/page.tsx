@@ -20,7 +20,7 @@ export default async function DashboardPage() {
 
   const dbUser = await syncUser();
 
-  const [homesCount, reportsCount, bookingsCount, upcomingBookings] = dbUser
+  const [homesCount, reportsCount, bookingsCount, upcomingBookings, subscription] = dbUser
     ? await Promise.all([
         prisma.home.count({ where: { userId: dbUser.id } }),
         prisma.report.count({
@@ -37,8 +37,21 @@ export default async function DashboardPage() {
           orderBy: { scheduledAt: "asc" },
           take: 3,
         }),
+        prisma.subscription.findUnique({ where: { userId: dbUser.id } }),
       ])
-    : [0, 0, 0, []];
+    : [0, 0, 0, [], null];
+
+  const isPro =
+    subscription?.plan === "PRO" &&
+    subscription?.status === "ACTIVE" &&
+    subscription.currentPeriodEnd != null &&
+    new Date(subscription.currentPeriodEnd) > new Date();
+
+  const proExpiry = isPro && subscription?.currentPeriodEnd
+    ? new Date(subscription.currentPeriodEnd).toLocaleDateString("en-IN", {
+        day: "numeric", month: "short", year: "numeric",
+      })
+    : null;
 
   const displayName = dbUser?.name?.split(" ")[0] ?? "there";
   const memberSince = dbUser
@@ -64,6 +77,19 @@ export default async function DashboardPage() {
             <p className="mt-2 truncate font-body text-base text-indigo-600">
               {dbUser.email}
             </p>
+          )}
+        </div>
+
+        {/* Plan badge */}
+        <div className="mb-6 flex items-center gap-3">
+          {isPro ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-gold/15 px-3 py-1 font-body text-xs font-semibold text-brand-gold">
+              ✦ Pro — active until {proExpiry}
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-cream-300 px-3 py-1 font-body text-xs font-semibold text-indigo-500">
+              Free plan
+            </span>
           )}
         </div>
 

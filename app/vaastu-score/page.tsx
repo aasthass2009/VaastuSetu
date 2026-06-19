@@ -14,6 +14,7 @@ import {
 import { calculate } from "@/lib/vaastu/engine";
 import { DIRECTIONS, DIRECTION_LABELS, ROOM_CONFIGS } from "@/lib/vaastu/rules";
 import type { Direction, RoomType, ScoreResult, ScoreTier } from "@/lib/vaastu/types";
+import { ReportDownloadButton } from "@/components/payment/report-download-button";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -386,16 +387,12 @@ export default function VaastuScorePage() {
             {isLoaded && (
               isSignedIn ? (
                 savedId ? (
-                  <div className="rounded-xl border border-green-200 bg-green-50 p-5 text-center">
-                    <p className="mb-3 font-body text-sm font-semibold text-green-800">
+                  <div className="rounded-xl border border-green-200 bg-green-50 p-5">
+                    <p className="mb-4 text-center font-body text-sm font-semibold text-green-800">
                       ✓ Saved to your profile!
                     </p>
-                    <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
-                      <Button asChild className="bg-brand-saffron text-cream-200 hover:bg-saffron-600">
-                        <a href={`/api/homes/${savedId}/report`} download>
-                          ↓ Download PDF Report
-                        </a>
-                      </Button>
+                    <ReportDownloadButton homeId={savedId} />
+                    <div className="mt-3 text-center">
                       <Button asChild variant="link" className="text-brand-saffron">
                         <Link href="/homes">View in My Homes →</Link>
                       </Button>
