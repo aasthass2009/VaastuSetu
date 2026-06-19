@@ -95,10 +95,10 @@ function CompassDial({ heading }: { heading: number }) {
           const col = isCard ? "#B8860B" : isInter ? "#6a60bc" : "#2e2760";
           const r1 = 118;
           const rad = (deg * Math.PI) / 180;
-          const x1 = cx + r1 * Math.sin(rad);
-          const y1 = cy - r1 * Math.cos(rad);
-          const x2 = cx + (r1 - len) * Math.sin(rad);
-          const y2 = cy - (r1 - len) * Math.cos(rad);
+          const x1 = Math.round((cx + r1 * Math.sin(rad)) * 1e4) / 1e4;
+          const y1 = Math.round((cy - r1 * Math.cos(rad)) * 1e4) / 1e4;
+          const x2 = Math.round((cx + (r1 - len) * Math.sin(rad)) * 1e4) / 1e4;
+          const y2 = Math.round((cy - (r1 - len) * Math.cos(rad)) * 1e4) / 1e4;
           return (
             <line
               key={deg}
@@ -111,8 +111,8 @@ function CompassDial({ heading }: { heading: number }) {
         {/* Direction labels — counter-rotated so text stays readable */}
         {labels.map(({ dir, deg, color, size, weight, r }) => {
           const rad = (deg * Math.PI) / 180;
-          const x = cx + r * Math.sin(rad);
-          const y = cy - r * Math.cos(rad);
+          const x = Math.round((cx + r * Math.sin(rad)) * 1e4) / 1e4;
+          const y = Math.round((cy - r * Math.cos(rad)) * 1e4) / 1e4;
           return (
             <text
               key={dir}
