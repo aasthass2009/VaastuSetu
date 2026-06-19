@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { syncUser } from "@/lib/sync-user";
 import { ProfileForm } from "./_components/profile-form";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Profile & Settings | VaastuSetu",
@@ -79,6 +81,19 @@ export default async function ProfilePage() {
             Update your display name, location, and language preferences.
           </p>
           <ProfileForm user={serialised} />
+        </div>
+
+        {/* Billing shortcut */}
+        <div className="mt-6 rounded-2xl border border-cream-300 bg-white p-6 shadow-sm md:p-8">
+          <h2 className="mb-1 font-heading text-base font-semibold text-brand-indigo">
+            Billing &amp; Orders
+          </h2>
+          <p className="mb-4 font-body text-sm text-indigo-500">
+            View your purchases, subscription status, and order receipts.
+          </p>
+          <Button asChild variant="outline" size="sm" className="border-brand-indigo text-brand-indigo hover:bg-brand-indigo hover:text-cream-200">
+            <Link href="/billing">View Billing &amp; Orders →</Link>
+          </Button>
         </div>
 
         {/* Read-only account info */}

@@ -197,16 +197,21 @@ export default async function DashboardPage() {
           </div>
         )}
 
-        {/* Account meta + profile link */}
-        <div className="mt-8 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+        {/* Account meta + quick links */}
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {memberSince && (
             <p className="font-body text-xs text-indigo-400">
               Member since {memberSince}
             </p>
           )}
-          <Button asChild variant="outline" size="sm" className="w-fit border-cream-400 text-indigo-600 hover:bg-brand-indigo hover:text-cream-200">
-            <Link href="/profile">Profile &amp; Settings →</Link>
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild variant="outline" size="sm" className="border-cream-400 text-indigo-600 hover:bg-brand-indigo hover:text-cream-200">
+              <Link href="/billing">Billing &amp; Orders →</Link>
+            </Button>
+            <Button asChild variant="outline" size="sm" className="border-cream-400 text-indigo-600 hover:bg-brand-indigo hover:text-cream-200">
+              <Link href="/profile">Profile &amp; Settings →</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

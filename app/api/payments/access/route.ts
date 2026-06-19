@@ -26,9 +26,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Failed to check access" }, { status: 500 });
   }
 
+  // Cancelled subs retain access until currentPeriodEnd (already paid)
   const isPro =
     subscription?.plan === "PRO" &&
-    subscription?.status === "ACTIVE" &&
+    (subscription.status === "ACTIVE" || subscription.status === "CANCELLED") &&
     subscription.currentPeriodEnd != null &&
     new Date(subscription.currentPeriodEnd) > new Date();
 

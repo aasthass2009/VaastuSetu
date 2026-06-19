@@ -22,9 +22,10 @@ async function hasReportAccess(userId: string, homeId: string): Promise<boolean>
     }),
   ]);
 
+  // Cancelled subs retain access until currentPeriodEnd (already paid)
   const isPro =
     subscription?.plan === "PRO" &&
-    subscription?.status === "ACTIVE" &&
+    (subscription.status === "ACTIVE" || subscription.status === "CANCELLED") &&
     subscription.currentPeriodEnd != null &&
     new Date(subscription.currentPeriodEnd) > new Date();
 

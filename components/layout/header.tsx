@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, Settings, X } from "lucide-react";
+import { Menu, Settings, X, Receipt } from "lucide-react";
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 const navLinks = [
@@ -82,6 +82,11 @@ export default function Header() {
                   labelIcon={<Settings className="h-4 w-4" />}
                   href="/profile"
                 />
+                <UserButton.Link
+                  label="Billing & Orders"
+                  labelIcon={<Receipt className="h-4 w-4" />}
+                  href="/billing"
+                />
               </UserButton.MenuItems>
             </UserButton>
           </Show>
@@ -134,6 +139,11 @@ export default function Header() {
               <li>
                 <Link href="/profile" className={navClass("/profile") + " block text-base"} onClick={() => setMobileOpen(false)}>
                   Profile & Settings
+                </Link>
+              </li>
+              <li>
+                <Link href="/billing" className={navClass("/billing") + " block text-base"} onClick={() => setMobileOpen(false)}>
+                  Billing & Orders
                 </Link>
               </li>
             </Show>
