@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,31 +9,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const features = [
-  {
-    title: "Home Vastu Analysis",
-    description:
-      "Comprehensive directional audit of your home to align energy flow with the five elements.",
-    icon: "🏠",
-    href: "/services#vaastu-score",
-  },
-  {
-    title: "Office & Commercial",
-    description:
-      "Optimise workspace layout to foster productivity, prosperity, and harmony among colleagues.",
-    icon: "🏢",
-    href: "/services#reports",
-  },
-  {
-    title: "Plot & Construction",
-    description:
-      "Evaluate land orientation and construction plans before breaking ground for lasting positive energy.",
-    icon: "📐",
-    href: "/services#consultants",
-  },
-];
+export default async function HomePage() {
+  const t = await getTranslations();
 
-export default function HomePage() {
+  const features = [
+    {
+      title: t("services.items.home.title"),
+      description: t("services.items.home.description"),
+      icon: "🏠",
+      href: "/services#vaastu-score",
+    },
+    {
+      title: t("services.items.office.title"),
+      description: t("services.items.office.description"),
+      icon: "🏢",
+      href: "/services#reports",
+    },
+    {
+      title: t("services.items.plot.title"),
+      description: t("services.items.plot.description"),
+      icon: "📐",
+      href: "/services#consultants",
+    },
+  ];
+
   return (
     <>
       {/* Hero */}
@@ -47,20 +47,18 @@ export default function HomePage() {
         />
         <div className="relative mx-auto max-w-3xl">
           <p className="mb-4 font-body text-sm font-medium uppercase tracking-[0.2em] text-brand-gold">
-            Ancient Wisdom · Modern Living
+            {t("hero.tagline")}
           </p>
           <h1 className="mb-6 font-heading text-4xl font-semibold leading-tight text-cream-200 sm:text-5xl md:text-7xl">
-            Harmonise Your Space with{" "}
-            <span className="text-brand-saffron">Vastu</span>
+            {t("hero.title")}{" "}
+            <span className="text-brand-saffron">{t("hero.titleHighlight")}</span>
           </h1>
           <p className="mx-auto mb-10 max-w-xl font-body text-base leading-relaxed text-cream-300 sm:text-lg">
-            VaastuSetu bridges five-thousand-year-old Vedic architectural
-            principles with contemporary design — helping you create spaces
-            that nurture well-being, abundance, and peace.
+            {t("hero.subtitle")}
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" className="min-w-[180px] text-base">
-              <Link href="/vaastu-score">Get Your Vastu Score</Link>
+              <Link href="/vaastu-score">{t("hero.ctaPrimary")}</Link>
             </Button>
             <Button
               asChild
@@ -68,7 +66,7 @@ export default function HomePage() {
               variant="outline"
               className="min-w-[180px] border-cream-300 text-base text-cream-200 hover:bg-cream-200/10 hover:text-cream-200"
             >
-              <Link href="/about">Learn More</Link>
+              <Link href="/about">{t("hero.ctaSecondary")}</Link>
             </Button>
           </div>
         </div>
@@ -86,11 +84,10 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 text-center">
             <h2 className="mb-3 font-heading text-3xl font-semibold text-brand-indigo sm:text-4xl md:text-5xl">
-              Our Services
+              {t("services.heading")}
             </h2>
             <p className="mx-auto max-w-lg font-body text-base text-indigo-700">
-              Tailored Vastu consultancy for every stage of your journey — from
-              choosing land to refining your living space.
+              {t("services.subtitle")}
             </p>
           </div>
 
@@ -113,7 +110,7 @@ export default function HomePage() {
                     variant="link"
                     className="px-0 text-brand-saffron group-hover:underline"
                   >
-                    <Link href={feature.href}>Learn more →</Link>
+                    <Link href={feature.href}>{t("services.learnMore")}</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -122,7 +119,7 @@ export default function HomePage() {
 
           <div className="mt-10 text-center">
             <Button asChild variant="outline" className="border-brand-indigo text-brand-indigo hover:bg-brand-indigo hover:text-cream-200">
-              <Link href="/services">View all services →</Link>
+              <Link href="/services">{t("services.viewAll")}</Link>
             </Button>
           </div>
         </div>
@@ -132,18 +129,17 @@ export default function HomePage() {
       <section className="bg-brand-saffron px-4 py-10 text-center sm:px-6 sm:py-14">
         <div className="mx-auto max-w-2xl">
           <h2 className="mb-4 font-heading text-2xl font-semibold text-cream-200 sm:text-3xl md:text-4xl">
-            Ready to Transform Your Space?
+            {t("cta.heading")}
           </h2>
           <p className="mb-8 font-body text-base text-cream-300">
-            Speak with a certified Vastu consultant today and take the first
-            step toward a harmonious home.
+            {t("cta.subtitle")}
           </p>
           <Button
             asChild
             size="lg"
             className="border-cream-200 bg-cream-200 text-brand-saffron hover:bg-cream-100 hover:text-brand-saffron"
           >
-            <Link href="/sign-up">Schedule Your Free Call</Link>
+            <Link href="/sign-up">{t("cta.button")}</Link>
           </Button>
         </div>
       </section>

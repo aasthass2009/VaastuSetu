@@ -24,9 +24,12 @@ export async function syncUser() {
     [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") ||
     undefined;
 
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const isAdmin = !!adminEmail && email === adminEmail;
+
   return await prisma.user.upsert({
     where: { clerkId: clerkUser.id },
-    create: { clerkId: clerkUser.id, email, name, role: "CLIENT" },
-    update: { email, name },
+    create: { clerkId: clerkUser.id, email, name, role: isAdmin ? "ADMIN" : "CLIENT" },
+    update: { email, name, ...(isAdmin ? { role: "ADMIN" } : {}) },
   });
 }

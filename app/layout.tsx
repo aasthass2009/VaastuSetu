@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getLocale } from "next-intl/server";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -25,14 +27,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang={locale}>
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -42,23 +47,22 @@ export default function RootLayout({
           />
         </head>
         <body className="flex min-h-screen flex-col">
-          {/* Skip link — outside overflow wrapper so its focus:fixed positioning works on iOS */}
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-saffron focus:px-4 focus:py-2 focus:text-cream-200 focus:outline-none"
           >
             Skip to content
           </a>
-          {/* overflow-x wrapper around scrollable content only — NOT around fixed elements */}
-          <div className="flex min-h-screen flex-col overflow-x-hidden">
-            <Header />
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
-          {/* ChatWidget is fixed — must be outside the overflow wrapper */}
-          <ChatWidget />
+          <NextIntlClientProvider messages={messages}>
+            <div className="flex min-h-screen flex-col overflow-x-hidden">
+              <Header />
+              <main id="main-content" className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+            <ChatWidget />
+          </NextIntlClientProvider>
           <RegisterSW />
         </body>
       </html>

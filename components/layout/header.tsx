@@ -3,20 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, Settings, X, Receipt } from "lucide-react";
+import { Menu, Settings, X, Receipt, ShieldCheck } from "lucide-react";
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
-
-const navLinks = [
-  { label: "Home",         href: "/" },
-  { label: "Vastu Score",  href: "/vaastu-score" },
-  { label: "Room Guides",  href: "/room-guides" },
-  { label: "Consultants",  href: "/consultants" },
-  { label: "Compass",      href: "/compass" },
-];
+import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "./language-switcher";
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const t = useTranslations("nav");
+
+  const navLinks = [
+    { label: t("home"),        href: "/" },
+    { label: t("vaastuScore"), href: "/vaastu-score" },
+    { label: t("roomGuides"),  href: "/room-guides" },
+    { label: t("consultants"), href: "/consultants" },
+    { label: t("compass"),     href: "/compass" },
+  ];
 
   function navClass(href: string) {
     const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -45,22 +48,23 @@ export default function Header() {
           ))}
           <Show when="signed-in">
             <Link href="/dashboard" className={navClass("/dashboard")}>
-              Dashboard
+              {t("dashboard")}
             </Link>
           </Show>
         </nav>
 
-        {/* Desktop auth */}
+        {/* Desktop auth + language */}
         <div className="hidden items-center gap-3 md:flex">
+          <LanguageSwitcher />
           <Show when="signed-out">
             <SignInButton mode="redirect">
               <button className="font-body text-sm text-cream-300 transition-colors hover:text-brand-gold">
-                Sign in
+                {t("signIn")}
               </button>
             </SignInButton>
             <SignUpButton mode="redirect">
               <button className="rounded-md bg-brand-saffron px-4 py-1.5 font-body text-sm font-medium text-cream-200 transition-colors hover:bg-saffron-600">
-                Get started
+                {t("getStarted")}
               </button>
             </SignUpButton>
           </Show>
@@ -78,14 +82,19 @@ export default function Header() {
             >
               <UserButton.MenuItems>
                 <UserButton.Link
-                  label="Profile & Settings"
+                  label={t("profile")}
                   labelIcon={<Settings className="h-4 w-4" />}
                   href="/profile"
                 />
                 <UserButton.Link
-                  label="Billing & Orders"
+                  label={t("billing")}
                   labelIcon={<Receipt className="h-4 w-4" />}
                   href="/billing"
+                />
+                <UserButton.Link
+                  label={t("adminDashboard")}
+                  labelIcon={<ShieldCheck className="h-4 w-4" />}
+                  href="/admin"
                 />
               </UserButton.MenuItems>
             </UserButton>
@@ -93,11 +102,11 @@ export default function Header() {
         </div>
 
         {/* Mobile: auth + hamburger */}
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
           <Show when="signed-out">
             <SignUpButton mode="redirect">
               <button className="rounded-md bg-brand-saffron px-3 py-1 font-body text-xs font-medium text-cream-200">
-                Get started
+                {t("getStarted")}
               </button>
             </SignUpButton>
           </Show>
@@ -133,17 +142,22 @@ export default function Header() {
             <Show when="signed-in">
               <li>
                 <Link href="/dashboard" className={navClass("/dashboard") + " block text-base"} onClick={() => setMobileOpen(false)}>
-                  Dashboard
+                  {t("dashboard")}
                 </Link>
               </li>
               <li>
                 <Link href="/profile" className={navClass("/profile") + " block text-base"} onClick={() => setMobileOpen(false)}>
-                  Profile & Settings
+                  {t("profile")}
                 </Link>
               </li>
               <li>
                 <Link href="/billing" className={navClass("/billing") + " block text-base"} onClick={() => setMobileOpen(false)}>
-                  Billing & Orders
+                  {t("billing")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin" className={navClass("/admin") + " block text-base"} onClick={() => setMobileOpen(false)}>
+                  {t("adminDashboard")}
                 </Link>
               </li>
             </Show>
@@ -151,11 +165,14 @@ export default function Header() {
               <li className="pt-2 border-t border-white/10">
                 <SignInButton mode="redirect">
                   <button className="font-body text-base text-cream-300 hover:text-brand-gold" onClick={() => setMobileOpen(false)}>
-                    Sign in
+                    {t("signIn")}
                   </button>
                 </SignInButton>
               </li>
             </Show>
+            <li className="pt-2 border-t border-white/10">
+              <LanguageSwitcher />
+            </li>
           </ul>
         </nav>
       )}

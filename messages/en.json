@@ -1,0 +1,176 @@
+{
+  "nav": {
+    "home": "Home",
+    "vaastuScore": "Vastu Score",
+    "roomGuides": "Room Guides",
+    "consultants": "Consultants",
+    "compass": "Compass",
+    "dashboard": "Dashboard",
+    "signIn": "Sign in",
+    "getStarted": "Get started",
+    "adminDashboard": "Admin Dashboard",
+    "billing": "Billing & Orders",
+    "profile": "Profile & Settings"
+  },
+  "hero": {
+    "tagline": "Ancient Wisdom · Modern Living",
+    "title": "Harmonise Your Space with",
+    "titleHighlight": "Vastu",
+    "subtitle": "VaastuSetu bridges five-thousand-year-old Vedic architectural principles with contemporary design — helping you create spaces that nurture well-being, abundance, and peace.",
+    "ctaPrimary": "Get Your Vastu Score",
+    "ctaSecondary": "Learn More"
+  },
+  "services": {
+    "heading": "Our Services",
+    "subtitle": "Tailored Vastu consultancy for every stage of your journey — from choosing land to refining your living space.",
+    "learnMore": "Learn more →",
+    "viewAll": "View all services →",
+    "items": {
+      "home": {
+        "title": "Home Vastu Analysis",
+        "description": "Comprehensive directional audit of your home to align energy flow with the five elements."
+      },
+      "office": {
+        "title": "Office & Commercial",
+        "description": "Optimise workspace layout to foster productivity, prosperity, and harmony among colleagues."
+      },
+      "plot": {
+        "title": "Plot & Construction",
+        "description": "Evaluate land orientation and construction plans before breaking ground for lasting positive energy."
+      }
+    }
+  },
+  "cta": {
+    "heading": "Ready to Transform Your Space?",
+    "subtitle": "Speak with a certified Vastu consultant today and take the first step toward a harmonious home.",
+    "button": "Schedule Your Free Call"
+  },
+  "dashboard": {
+    "sectionLabel": "Your Dashboard",
+    "welcomePrefix": "Welcome,",
+    "myHomes": "My Homes",
+    "savedProperties": "Saved properties",
+    "scoreFirst": "Score your first home →",
+    "viewAllHomes": "View all homes →",
+    "reports": "Reports",
+    "reportsDesc": "PDF reports generated",
+    "bookings": "Bookings",
+    "bookingsDesc": "Consultations booked",
+    "browseConsultants": "Browse consultants →",
+    "upcomingConsultations": "Upcoming Consultations",
+    "memberSince": "Member since",
+    "billingLink": "Billing & Orders →",
+    "profileLink": "Profile & Settings →",
+    "freePlan": "Free plan",
+    "proActiveUntil": "Pro — active until"
+  },
+  "vaastuScore": {
+    "tagline": "Core Feature",
+    "title": "Your Vastu Score",
+    "subtitle": "Select the direction each room faces. We'll calculate a 0–100 Vastu score and give you a tailored, no-demolition remedy for every imbalance we find.",
+    "formHeading": "Which direction does each room face?",
+    "formHint": "Stand in the centre of the room and face outward — the direction you face is the room's facing direction.",
+    "compassPrompt": "Not sure of a direction?",
+    "compassLink": "Use the compass tool →",
+    "calculateBtn": "Calculate My Vastu Score",
+    "outOf100": "out of 100",
+    "roomBreakdown": "Room-by-Room Breakdown",
+    "pts": "pts",
+    "viewRemedy": "View remedy ▾",
+    "hideRemedy": "Hide remedy ▴",
+    "saveHeading": "Save this score",
+    "saveDesc": "Save to your profile so you can track improvements over time.",
+    "savePlaceholder": "Label (e.g. My Flat, Pune)",
+    "saving": "Saving…",
+    "saveBtn": "Save to My Homes",
+    "savedMsg": "✓ Saved to your profile!",
+    "viewInHomes": "View in My Homes →",
+    "signupHeading": "Want to keep this score?",
+    "signupDesc": "Create a free account to save your results, track improvements, and access personalised remedies.",
+    "createAccount": "Create free account",
+    "signIn": "Sign in",
+    "howItWorksHeading": "How the Score Works",
+    "howItWorksBody": "Each room is weighted by its Vastu importance — entrance (22 pts), kitchen (20 pts), master bedroom (18 pts), pooja room (14 pts), toilet (14 pts), living room (12 pts). A direction classified as Ideal earns the full weight; Acceptable earns 65 %; Neutral earns 30 %; and Needs Attention earns 0 pts but comes with a targeted no-demolition remedy.",
+    "tiers": {
+      "ideal": "✦ Ideal",
+      "okay": "~ Acceptable",
+      "neutral": "— Neutral",
+      "avoid": "⚠ Needs attention"
+    },
+    "verdicts": {
+      "Excellent": "Outstanding Vastu alignment. Your home is set up to support well-being, prosperity, and peace.",
+      "Good": "Good overall energy with a few rooms that can be improved with simple, non-structural remedies.",
+      "Fair": "Several rooms are misaligned. Apply the remedies below to meaningfully improve your home's Vastu.",
+      "Poor": "Significant Vastu imbalances detected. The no-demolition remedies below can help neutralise negative energy."
+    },
+    "rooms": {
+      "entrance": "Main Entrance",
+      "kitchen": "Kitchen",
+      "bedroom": "Master Bedroom",
+      "pooja": "Pooja Room",
+      "toilet": "Toilet / Bathroom",
+      "living": "Living Room"
+    },
+    "directions": {
+      "N": "North",
+      "NE": "North-East",
+      "E": "East",
+      "SE": "South-East",
+      "S": "South",
+      "SW": "South-West",
+      "W": "West",
+      "NW": "North-West"
+    }
+  },
+  "roomGuides": {
+    "tagline": "Room-by-Room Guide",
+    "title": "Vastu for Every",
+    "titleHighlight": "Room",
+    "subtitle": "Each room governs a different dimension of life. Discover the ideal directions, what to do and avoid, and practical no-demolition remedies for any placement.",
+    "badge1": "6 Rooms Covered",
+    "badge2": "No Demolition Needed",
+    "badge3": "Classical Vastu Sources",
+    "whyItMatters": "Why it matters",
+    "do": "Do",
+    "avoid": "Avoid",
+    "remedyHeading": "✦ No-Demolition Remedy",
+    "ctaHeading": "See how your home scores",
+    "ctaSubtitle": "Use our free Vastu Score tool to get a personalised room-by-room analysis and remedies tailored to your home.",
+    "ctaPrimary": "Get Your Vastu Score",
+    "ctaSecondary": "Read the FAQ",
+    "rooms": {
+      "entrance": { "label": "Main Entrance", "idealDirs": "North · North-East · East" },
+      "kitchen":  { "label": "Kitchen",        "idealDirs": "South-East (Ideal) · North-West (Acceptable)" },
+      "bedroom":  { "label": "Master Bedroom", "idealDirs": "South-West (Ideal) · South · West" },
+      "pooja":    { "label": "Pooja Room",     "idealDirs": "North-East (Ideal) · East · North" },
+      "toilet":   { "label": "Toilet / Bathroom", "idealDirs": "North-West · West · South" },
+      "living":   { "label": "Living Room",    "idealDirs": "North · East · North-East" }
+    }
+  },
+  "faq": {
+    "tagline": "Common Questions",
+    "title": "Vastu FAQ",
+    "subtitle": "Honest answers to the questions we hear most often — from whether you need to break walls, to how Vastu applies abroad.",
+    "stillHaveQuestions": "Still have questions?",
+    "aiGuruHeading": "Ask our AI Vastu Guru",
+    "aiGuruDesc": "The chat widget in the bottom-right corner of every page is powered by our AI Vastu expert. Ask it anything about directions, remedies, or room placement — it draws on classical Vastu knowledge to give you a personalised answer.",
+    "ctaPrimary": "Get Your Free Vastu Score",
+    "ctaSecondary": "Browse Room Guides",
+    "questions": [
+      "Do I have to demolish or break walls to follow Vastu?",
+      "I live in the UK / US / Canada — does Vastu still apply to my home?",
+      "How is Vastu Shastra different from Feng Shui?",
+      "Do I need a professional floor plan to use VaastuSetu?",
+      "Is Vastu Shastra scientifically proven?",
+      "My main entrance faces south — is my home beyond hope?",
+      "Can I use Vastu for an apartment or a flat I'm renting?",
+      "How do I figure out which direction is north in my home?",
+      "How often should I reassess my home's Vastu?",
+      "What are the most impactful Vastu changes to make first?"
+    ]
+  },
+  "common": {
+    "selectDirection": "Select direction",
+    "language": "Language"
+  }
+}

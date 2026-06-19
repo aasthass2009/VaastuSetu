@@ -233,6 +233,8 @@ export function ChatWidget() {
               onKeyDown={handleKey}
               placeholder="Ask about Vastu..."
               disabled={busy}
+              enterKeyHint="send"
+              inputMode="text"
               className="flex-1 text-sm px-3 py-2 rounded-full bg-[#FBF5EA] border border-[#E8DFC8] text-[#241B3A] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#C05A12]/30 disabled:opacity-60"
             />
             <button

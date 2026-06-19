@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/db";
 import { syncUser } from "@/lib/sync-user";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,6 +42,8 @@ export default async function DashboardPage() {
       ])
     : [0, 0, 0, [], null];
 
+  const t = await getTranslations("dashboard");
+
   const isPro =
     subscription?.plan === "PRO" &&
     subscription?.status === "ACTIVE" &&
@@ -68,10 +71,10 @@ export default async function DashboardPage() {
         {/* Welcome */}
         <div className="mb-10">
           <p className="font-body text-sm font-medium uppercase tracking-widest text-brand-saffron">
-            Your Dashboard
+            {t("sectionLabel")}
           </p>
           <h1 className="mt-1 font-heading text-3xl font-semibold text-brand-indigo sm:text-4xl md:text-5xl">
-            Welcome, {displayName} ✦
+            {t("welcomePrefix")} {displayName} ✦
           </h1>
           {dbUser && (
             <p className="mt-2 truncate font-body text-base text-indigo-600">
@@ -84,11 +87,11 @@ export default async function DashboardPage() {
         <div className="mb-6 flex items-center gap-3">
           {isPro ? (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-gold/15 px-3 py-1 font-body text-xs font-semibold text-brand-gold">
-              ✦ Pro — active until {proExpiry}
+              ✦ {t("proActiveUntil")} {proExpiry}
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-cream-300 px-3 py-1 font-body text-xs font-semibold text-indigo-500">
-              Free plan
+              {t("freePlan")}
             </span>
           )}
         </div>
@@ -97,14 +100,14 @@ export default async function DashboardPage() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <Card className="border-cream-300">
             <CardHeader>
-              <CardTitle className="text-lg">My Homes</CardTitle>
+              <CardTitle className="text-lg">{t("myHomes")}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-heading text-4xl font-semibold text-brand-saffron">
                 {homesCount}
               </p>
               <p className="mt-1 font-body text-sm text-indigo-600">
-                Saved properties
+                {t("savedProperties")}
               </p>
               <Button
                 asChild
@@ -112,9 +115,9 @@ export default async function DashboardPage() {
                 className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron"
               >
                 {homesCount === 0 ? (
-                  <Link href="/vaastu-score">Score your first home →</Link>
+                  <Link href="/vaastu-score">{t("scoreFirst")}</Link>
                 ) : (
-                  <Link href="/homes">View all homes →</Link>
+                  <Link href="/homes">{t("viewAllHomes")}</Link>
                 )}
               </Button>
             </CardContent>
@@ -122,35 +125,35 @@ export default async function DashboardPage() {
 
           <Card className="border-cream-300">
             <CardHeader>
-              <CardTitle className="text-lg">Reports</CardTitle>
+              <CardTitle className="text-lg">{t("reports")}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-heading text-4xl font-semibold text-brand-gold">
                 {reportsCount}
               </p>
               <p className="mt-1 font-body text-sm text-indigo-600">
-                PDF reports generated
+                {t("reportsDesc")}
               </p>
             </CardContent>
           </Card>
 
           <Card className="border-cream-300">
             <CardHeader>
-              <CardTitle className="text-lg">Bookings</CardTitle>
+              <CardTitle className="text-lg">{t("bookings")}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-heading text-4xl font-semibold text-brand-indigo">
                 {bookingsCount}
               </p>
               <p className="mt-1 font-body text-sm text-indigo-600">
-                Consultations booked
+                {t("bookingsDesc")}
               </p>
               <Button
                 asChild
                 variant="link"
                 className="mt-2 h-auto p-0 font-body text-xs text-brand-saffron"
               >
-                <Link href="/consultants">Browse consultants →</Link>
+                <Link href="/consultants">{t("browseConsultants")}</Link>
               </Button>
             </CardContent>
           </Card>
@@ -160,7 +163,7 @@ export default async function DashboardPage() {
         {upcomingBookings.length > 0 && (
           <div className="mt-10">
             <h2 className="mb-4 font-heading text-xl font-semibold text-brand-indigo">
-              Upcoming Consultations
+              {t("upcomingConsultations")}
             </h2>
             <div className="space-y-3">
               {upcomingBookings.map((b) => {
@@ -201,15 +204,15 @@ export default async function DashboardPage() {
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {memberSince && (
             <p className="font-body text-xs text-indigo-400">
-              Member since {memberSince}
+              {t("memberSince")} {memberSince}
             </p>
           )}
           <div className="flex flex-wrap gap-2">
             <Button asChild variant="outline" size="sm" className="border-cream-400 text-indigo-600 hover:bg-brand-indigo hover:text-cream-200">
-              <Link href="/billing">Billing &amp; Orders →</Link>
+              <Link href="/billing">{t("billingLink")}</Link>
             </Button>
             <Button asChild variant="outline" size="sm" className="border-cream-400 text-indigo-600 hover:bg-brand-indigo hover:text-cream-200">
-              <Link href="/profile">Profile &amp; Settings →</Link>
+              <Link href="/profile">{t("profileLink")}</Link>
             </Button>
           </div>
         </div>
